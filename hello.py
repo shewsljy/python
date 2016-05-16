@@ -176,7 +176,7 @@ print(s)
 s.add((7, 8, 9))
 print(s)
 
-# function
+# function define
 def my_abs(x):
 	if not isinstance(x, (int, float)):
 		raise TypeError('bad operand type')
@@ -217,6 +217,7 @@ def power(x, n = 2):
 print(power(5, 2))
 print(power(5))
 
+# function parameters
 def enroll(name, gender, age = 6, city = 'Beijing'):
 	print('name:', name)
 	print('gender:', gender)
@@ -285,9 +286,69 @@ args = (1, 2, 3)
 kw = {'d' : 88, 'x' : '$'}
 f2(*args, **kw)
 
+# function recursion
 def fact(n):
 	if n == 1:
 		return 1
 	return n * fact(n - 1)
 print(fact(1))
 print(fact(5))
+
+def fact_end(n):
+	return fact_iter(n, 1)
+
+def fact_iter(num, product):
+	if num == 1:
+		return product
+	return fact_iter(num - 1, num * product)
+print(fact_end(1))
+print(fact_end(5))
+
+# test function
+def move(n, a, b, c):
+	if n == 1:
+		print('move', a, '-->', c)
+		return
+	move(n-1, a, c, b)
+	print('move', a, '-->', c)
+	move(n-1, b, a, c)
+move(3, 'A', 'B', 'C')
+
+# slice
+L = list(range(100))
+print(L)
+print(L[:])
+print(L[:10])
+print(L[:10:2])
+print(L[-10:])
+print(L[::5])
+
+L = tuple(range(10))
+print(L)
+print(L[:])
+print(L[:5])
+
+L = 'ABCDEFGH'
+print(L)
+print(L[:])
+print(L[:3])
+
+# iteration
+d = {'a' : 1, 'b' : 2, 'c' : 3}
+for key in d:
+	print(key)
+for key in d.keys():
+	print(key)
+for value in d.values():
+	print(value)
+for key, value in d.items():
+	print(key, value)
+
+from collections import Iterable
+print(isinstance('abd', Iterable))
+print(isinstance([1, 2, 3], Iterable))
+print(isinstance((1, 2, 3), Iterable))	
+print(isinstance(12345, Iterable))
+
+for i, value in enumerate(['A', 'B', 'C']):
+	print(i, value)
