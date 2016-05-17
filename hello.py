@@ -369,3 +369,89 @@ print([s.lower() for s in L])
 
 L = ['Hello', 'World', 'IBM', 'None', 18, 'Apple']
 print([s.lower() for s in L if isinstance(s, str)])
+
+# generator
+g = [x * x for x in range(10)]
+for n in g:
+	print('list1:', n)
+for n in g:
+	print('list2:', n)
+
+g = (x * x for x in range(10))
+for n in g:
+	print('generator1:', n)
+for n in g:
+	print('generator2:', n)
+
+def fib_normal(max):
+	n, a, b = 0, 0, 1
+	while n < max:
+		print('fib_normal', b)
+		a, b = b, a + b
+		n = n + 1
+	return 'done'
+print(fib_normal(6))
+
+def fib(max):
+	n, a, b = 0, 0, 1
+	while n < max:
+		yield b
+		a, b = b, a + b
+		n = n + 1
+	return 'done'
+for n in fib(6):
+	print('fib:', n)
+
+g = fib(6)
+while True:
+	try:
+		x = next(g)
+		print('g:', x)
+	except StopIteration as e:
+		print('Generator return value:', e.value)
+		break
+
+def triangles():
+	N = [1]
+	while True:
+		yield N
+		N.append(0)
+		N = [N[i - 1] + N[i] for i in range(len(N))]
+n = 0
+for t in triangles():
+	print(t)
+	n = n + 1
+	if n == 10:
+		break
+
+# higher-order function
+def add(x, y, f):
+	return f(x) + f(y)
+print(add(-5, 6, abs))
+
+# map
+def f(x):
+	return x * x
+print(list(map(f, [1, 2, 3, 4, 5, 6, 7, 8, 9])))
+
+print(list(map(str, [1, 2, 3, 4, 5, 6, 7, 8, 9])))
+
+# reduce
+from functools import reduce
+def add(x, y):
+	return x + y
+print(reduce(add, [1, 3, 5, 7, 9]))
+print(sum([1, 3, 5, 7, 9]))
+
+def fn(x, y):
+	return x * 10 + y
+print(reduce(fn, [1, 3, 5, 7, 9]))
+
+def chartonum(s):
+	return {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9}[s]
+print(chartonum('1'))
+print(reduce(fn, map(chartonum, '13579')))
+
+def strtoint(s):
+	return reduce(fn, map(chartonum, s))
+print(strtoint('1233333'))
