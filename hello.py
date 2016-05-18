@@ -455,3 +455,93 @@ print(reduce(fn, map(chartonum, '13579')))
 def strtoint(s):
 	return reduce(fn, map(chartonum, s))
 print(strtoint('1233333'))
+
+def str2int(s):
+	return reduce(lambda x, y : x * 10 + y, map(chartonum, s))
+print(str2int('1233333'))
+
+# map reduce test
+def normalize(name):
+	return name.capitalize()
+L1 = ['adam', 'LISA', 'barT']
+L2 = list(map(normalize, L1))
+print(L2)
+
+def prod(L):
+	return reduce(lambda x, y : x * y, L)
+print('3 * 5 * 7 * 9 =', prod([3, 5, 7, 9]))
+
+def str2float(s):
+	#sn = s.split('.')
+	#print(sn)
+	sn = s.split('.')[0] + s.split('.')[-1]
+	#print(sn)
+	#print(len(s))
+	#print(s.index('.'))
+	#print(len(s) - s.index('.') -1)
+	return str2int(sn) / pow(10, len(s) - s.index('.') -1)
+print('str2float(\'123.456\') =', str2float('123.456'))
+
+# filter
+def is_odd(n):
+	return n % 2 == 1
+print(list(filter(is_odd, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])))
+
+def not_empty(s):
+	return s and s.strip()
+print(list(filter(not_empty, ['A', '', 'B', None, 'C', ' '])))
+
+def _odd_iter():
+	n = 1
+	while True:
+		n = n + 2
+		yield n
+g = (x for x in _odd_iter())
+for n in g:
+	if n < 10:
+		print(n)
+	else:
+		break
+
+def _not_disvisible(n):
+	return lambda x : x % n > 0
+
+def primes():
+	yield 2
+	it = _odd_iter()
+	while True:
+		n = next(it)
+		yield n
+		it = filter(_not_disvisible(n), it)
+for n in primes():
+	if n < 100:
+		print(n)
+	else:
+		break
+
+# filter test
+def is_palindrome(n):
+	return str(n)[::-1] == str(n)
+output = filter(is_palindrome, range(1, 1000))
+print(list(output))
+
+# sorted
+print(sorted([36, -4, 2, 9, -21]))
+print(sorted([36, -4, 2, 9, -21], key=abs))
+print(sorted(['asd', 'sdfw', 'bcds', 'Afd', 'Bddf']))
+print(sorted(['asd', 'sdfw', 'bcds', 'Afd', 'Bddf'], key=str.lower))
+print(sorted(['asd', 'sdfw', 'bcds', 'Afd', 'Bddf'], key=str.upper, reverse=True))
+
+# sorted test
+L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
+def by_name(t):
+	print(t[0])
+	print(t[1])
+	return t[0]
+L2 = sorted(L, key=by_name)
+print(L2)
+
+def by_score(t):
+	return t[1]
+L3 = sorted(L, key=by_score, reverse=True)
+print(L3)
