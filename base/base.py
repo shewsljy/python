@@ -545,3 +545,131 @@ def by_score(t):
 	return t[1]
 L3 = sorted(L, key=by_score, reverse=True)
 print(L3)
+
+# return function
+def calc_sum(*args):
+	ax = 0
+	for n in args:
+		ax = ax + n
+	return ax
+p = [1, 2, 3, 4]
+print(calc(*p))
+p = calc(*(1, 2, 3, 4))
+print(p)
+
+def lazy_sum(*args):
+	def sum():
+		ax = 0
+		for n in args:
+			ax = ax + n
+		return ax
+	return sum
+f = lazy_sum(1, 2, 3, 4, 5)
+print(f)
+print(f())
+
+def count():
+	fs = []
+	for i in range(1,4):
+		def f():
+			return i * i
+		print(i)
+		print(f)
+		print(f())
+		fs.append(f)
+	return fs
+f1, f2, f3 = count()
+print(f1, f2, f3)
+print(f1(), f2(), f3())
+
+def count():
+	def f(j):
+		def g():
+			return j * j
+		return g
+	fs = []
+	for i in range(1,4):
+		fs.append(f(i))
+	return fs
+f1, f2, f3 = count()
+print(f1, f2, f3)
+print(f1(), f2(), f3())
+
+# decorator
+def log(func):
+	def wrapper(*args, **kw):
+		print('call %s():' % func.__name__)
+		return func(*args, **kw)
+	return wrapper
+@log
+def now():
+	print('2016-5-20')
+now()
+
+def log(text):
+	def decorator(func):
+		def wrapper(*args, **kw):
+			print('%s %s():' % (text, func.__name__))
+			return func(*args, **kw)
+		return wrapper
+	return decorator
+@log('execute')
+def now():
+	print('2016-05-19')
+now()
+
+import functools
+def log(func):
+	@functools.wraps(func)
+	def wrapper(*args, **kw):
+		print('begin %s():' % func.__name__)
+		#return func(*args, **kw)
+		func(*args, **kw)
+		print('end %s():' % func.__name__)
+	return wrapper
+@log
+def now():
+	print('functools-2016-log')
+now()
+
+def log(text):
+	def decorator(func):
+		@functools.wraps(func)
+		def wrapper(*args, **kw):
+			print('%s %s():' % (text, func.__name__))
+			return func(*args, **kw)
+		return wrapper
+	return decorator
+@log('execute')
+def now():
+	print('functools-2016-log(text)')
+now()
+
+# decorator test
+def log_textorfunc(textorfunc):
+	text = textorfunc if isinstance(textorfunc, str) else 'call :'
+	def decorator(func):
+		@functools.wraps(func)
+		def wrapper(*args, **kw):
+			print('%s %s():' % (text, func.__name__))
+			return func(*args, **kw)
+		return wrapper
+	return decorator if isinstance(textorfunc, str) else decorator(textorfunc)
+@log_textorfunc
+def now():
+	print('1111111')
+now()
+@log_textorfunc('execute')
+def now():
+	print('2222222')
+now()
+
+# partial function
+print('12345')
+print(type('12345'))
+print(int('12345'))
+print(type(int('12345')))
+int2 = functools.partial(int, base=2)
+print(int2('1000000'))
+print(int2('1000000', base=10))
+print(type(int2('1010101')))
