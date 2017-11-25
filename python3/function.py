@@ -220,3 +220,70 @@ def str2float(str):
     def char2num(s):
         return {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9}[s]#字符串映射整数
     return reduce(lambda x, y: x * 10 + y, map(char2num, str.split('.')[0])) + reduce(lambda x, y: x * 0.1 + y, map(char2num, str.split('.')[-1][::-1]+'0'))
+
+#利用filter()在一个list中，删掉偶数，只保留奇数
+def del_2(L):
+    def is_odd(n):
+        return n % 2 == 1
+    return list(filter(is_odd,L))
+#利用filter()把一个序列中的空字符串删掉
+def del_space(L):
+    def not_empty(s):
+        return s and s.strip()
+    return list(filter(not_empty,L))
+
+#利用filter计算素数
+'''
+计算素数的一个方法是埃氏筛法，它的算法理解起来非常简单：
+首先，列出从2开始的所有自然数，构造一个序列：
+2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...
+取序列的第一个数2，它一定是素数，然后用2把序列的2的倍数筛掉：
+取新序列的第一个数3，它一定是素数，然后用3把序列的3的倍数筛掉：
+取新序列的第一个数5，它一定是素数，然后用5把序列的5的倍数筛掉：
+不断筛下去，就可以得到所有的素数。
+'''
+#列出从2开始的所有自然数，构造一个序列
+def _odd_iter():
+    n = 1
+    while True:
+        n = n + 1
+        yield n
+
+#定义一个筛选函数，把序列元素n的倍数筛掉
+def  _not_divisible(n):
+    return lambda x:x % n > 0
+
+#查找素数
+def primes():
+    t = _odd_iter()
+    while True:
+        n = next(t)
+        yield n
+        t = filter(_not_divisible(n),t)
+'''
+for x in primes():
+    if x < 100:
+        print(x,'',end='')
+    else:
+        break
+'''
+
+#回数
+def is_palindrome(L):
+    def palindrome(n):
+        if not isinstance(n, int):
+            raise TypeError('not integer type')
+        if n >= 1:
+            return n == int(str(n)[::-1])
+        else:
+            print('please input rather than 1 integer')
+    return list(filter(palindrome,L))
+
+def by_name(t):
+    return t[0]
+
+def by_score(t):
+    return t[1]
+'''
+print(sorted([('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)],key=by_score,reverse=True))
+'''
