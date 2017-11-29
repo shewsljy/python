@@ -90,7 +90,7 @@ True
 >凡是可作用于for循环的对象都是Iterable类型；凡是可作用于next()函数的对象都是Iterator类型，它们表示一个惰性计算的序列；集合数据类型如list、dict、str等是Iterable但不是Iterator，不过可以通过iter()函数获得一个Iterator对象。Python的for循环本质上就是通过不断调用next()函数实现的
 
 ## map
->map()函数接收两个参数，一个是函数，一个是Iterable，map将传入的函数依次作用到序列的每个元素，并把结果作为新的Iterator返回
+>map()函数接收两个参数，一个是函数，一个是Iterable，map将传入的函数依次作用到序列的每个元素，并把结果作为新的Iterator返回。需要用list()函数获得所有结果并返回list
 ```
 >>> def f(x):
 ...     return x * x
@@ -147,4 +147,26 @@ def not_empty(s):
     return s and s.strip()
 list(filter(not_empty, ['A', '', 'B', None, 'C', '  ']))
 ['A', 'B', 'C']
+```
+
+## decorator
+>在代码运行期间动态增加功能的方式，称之为“装饰器”（Decorator）。是一个返回函数的高阶函数
+```
+# 定义装饰器 接受一个函数作为参数，并返回一个函数
+import functools
+def log(func):
+    # @functools.wraps(func)的作用是将返回的函数名不变，等价于 wrapper.__name__ = func.__name__
+    @functools.wraps(func)
+    def wrapper(*args, **kw):
+        print('call %s():' % func.__name__)
+        return func(*args, **kw)
+    return wrapper
+# 把decorator置于函数的定义处
+@log
+def now():
+    print('2015-3-25')
+# 结果
+now()
+call now():
+2015-3-25
 ```

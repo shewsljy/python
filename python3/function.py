@@ -287,3 +287,19 @@ def by_score(t):
 '''
 print(sorted([('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)],key=by_score,reverse=True))
 '''
+
+#利用闭包，生成器，构造计数器
+def createCounter():
+    def _odd_iter():
+        n = 0
+        while True:
+            n = n + 1
+            yield n
+    x = _odd_iter()
+    def counter():
+        return next(x)
+    return counter
+'''
+counterA = createCounter()
+print(counterA(), counterA(), counterA(), counterA(), counterA())
+'''
