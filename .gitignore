@@ -54,3 +54,4 @@ MANIFEST
 .pydevproject
 .idea
 /project/awesome-python3-webapp/venv
+.vscode
