@@ -12,7 +12,7 @@ __author__ = 'lijiayu'
 
 def index(request):
     ''' 对首页的/进行响应，简单地返回一个Awesome字符串 '''
-    return web.Response(body=b'<h1>Awesome</h1>')
+    return web.Response(body=b'<h1>Awesome</h1>', headers={'content-type':'text/html'})
 
 @asyncio.coroutine
 def init(loop):
