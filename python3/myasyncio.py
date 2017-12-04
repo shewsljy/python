@@ -85,6 +85,6 @@ coroutine执行结束时候会调用回调函数。
 '''
 总时间为4s左右。4s的阻塞时间，足够前面两个协程执行完毕。
 如果是同步顺序的任务，那么至少需要7s。此时我们使用了aysncio实现了并发。
-asyncio.wait(tasks) 也可以使用 asyncio.gather(*tasks) 
+asyncio.wait(tasks) 也可以使用 asyncio.gather(*tasks)
 前者接受一个task列表，后者接收一堆task
 '''
