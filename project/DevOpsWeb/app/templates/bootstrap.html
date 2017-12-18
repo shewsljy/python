@@ -1,34 +1,43 @@
-{% block doc -%}
+{%- block doc -%}
 <!DOCTYPE html>
 <html{% block html_attribs %}{% endblock html_attribs %}>
 {%- block html %}
   <head>
     {%- block head %}
-    <title>{% block title %}{{title|default}}{% endblock title %}</title>
+    <title>{% block title %}default_title_null{% endblock title %}</title>
 
     {%- block metas %}
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="基于python(3.6.3)语言,flask(0.12.2)框架,bootstrap(3.3.7)框架的运维管控平台">
+    <meta name="keywords" content="python, python3, flask, bootstrap, 运维管控平台">
+    <meta name="author" content="李家宇">
     {%- endblock metas %}
 
     {%- block styles %}
     <!-- Bootstrap -->
     <link href="{{ 'static/css/bootstrap.min.css' }}" rel="stylesheet">
     {%- endblock styles %}
+
     {%- endblock head %}
   </head>
   <body{% block body_attribs %}{% endblock body_attribs %}>
-    {% block body -%}
-    {% block navbar %}
+    {%- block body %}
+
+    {%- block navbar %}
     {%- endblock navbar %}
-    {% block content -%}
+
+    {%- block content %}
     {%- endblock content %}
 
-    {% block scripts %}
+    {%- block scripts %}
     <script src="{{ 'static/js/jquery.min.js' }}"></script>
     <script src="{{ 'static/js/bootstrap.min.js' }}"></script>
     {%- endblock scripts %}
+
     {%- endblock body %}
   </body>
 {%- endblock html %}
 </html>
-{% endblock doc -%}
+{%- endblock doc -%}
