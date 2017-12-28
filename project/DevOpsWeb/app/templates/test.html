@@ -7,8 +7,9 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>Bootstrap 101 Template</title>
 
-    <!-- Bootstrap -->
+    <!-- Bootstrap core CSS -->
     <link href="static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Favicons -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -19,25 +20,43 @@
     <![endif]-->
   </head>
   <body>
-    <!-- Docs skippy content -->
+    <!-- Docs skip to main content -->
     <a id="skippy" class="sr-only sr-only-focusable" href="#content">
       <div class="container">
         <span class="skiplink-text">直接进入主内容区</span>
       </div>
     </a>
+
+    <!-- Docs master nav -->
     <header class="navbar navbar-inverse navbar-static-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
+            <span class="sr-only">自适应导航按钮</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="{{ url_for('main.test') }}">Test Page</a>
         </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </div>
       </div>
     </header>
+
+    <div class="container" id="content">
+    <!-- The main page content -->
+      <h1 class="text-center">Bootstrap starter template</h1>
+      <p class="lead text-center">Use this document as a way to quickly start any new project.
+        <br> All you get is this text and a mostly barebones HTML document.
+      </p>
+    </div>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="static/js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
